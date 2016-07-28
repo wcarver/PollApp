@@ -18,12 +18,11 @@ class Response < ActiveRecord::Base
 
 
     def sibling_responses
-      temp_id = Response.last.id + 1
-      self.question.responses.where('responses.id != ?', temp_id).to_a
+      self.question.responses.where.not(id: self.id)
     end
 
     def respondent_already_answered?
-      unless self.sibling_responses.none? {|response| response.user_id = self.user_id}
+      if self.sibling_responses.exists?(user_id: self.user_id)
         errors[:err_msg] << 'Cannot answer the same question twice'
       end
     end
