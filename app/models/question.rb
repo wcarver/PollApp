@@ -14,7 +14,6 @@ class Question < ActiveRecord::Base
   has_many :responses,
     through: :answer_choices,
     source: :responses
-
     # SELECT
     #   answers.id, COUNT(responses)
     # FROM
