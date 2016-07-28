@@ -1,4 +1,5 @@
 class Response < ActiveRecord::Base
+  validates :user_id, :answer_id, presence: true
 
   belongs_to :respondent,
     primary_key: :id,
